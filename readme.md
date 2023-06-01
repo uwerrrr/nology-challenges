@@ -1,1 +1,1 @@
-# Oscar's Nology CSS challenge
+# Oscar's Nology challenge
