@@ -43,7 +43,7 @@ describe("Testing createRecipeString()", () => {
   });
 });
 
-xdescribe("Testing getFirstAndLastItems()", () => {
+describe("Testing getFirstAndLastItems()", () => {
   it("Should be defined", () => {
     expect(getFirstAndLastItems(coaches)).toBeDefined();
   });
@@ -58,7 +58,7 @@ xdescribe("Testing getFirstAndLastItems()", () => {
   });
 });
 
-xdescribe("Testing totalScores()", () => {
+describe("Testing totalScores()", () => {
   it("Should be defined", () => {
     expect(totalScores(scores)).toBeDefined();
   });
@@ -81,7 +81,7 @@ xdescribe("Testing totalScores()", () => {
   });
 });
 
-xdescribe("Testing totalRange()", () => {
+describe("Testing totalRange()", () => {
   it("Should be defined", () => {
     expect(totalRange(10)).toBeDefined();
   });
@@ -102,7 +102,7 @@ xdescribe("Testing totalRange()", () => {
   });
 });
 
-xdescribe("Testing moveFirstAndLastItems()", () => {
+describe("Testing moveFirstAndLastItems()", () => {
   it("Should be defined", () => {
     expect(moveFirstAndLastItems(items)).toBeDefined();
   });
@@ -113,11 +113,15 @@ xdescribe("Testing moveFirstAndLastItems()", () => {
 
   it("Should handle multiple inputs", () => {
     expect(moveFirstAndLastItems(items)).toEqual(["Pear", "Apple", "Orange"]);
-    expect(moveFirstAndLastItems(ingredients)).toEqual(["Tomato", "Bacon", "Lettuce"]);
+    expect(moveFirstAndLastItems(ingredients)).toEqual([
+      "Tomato",
+      "Bacon",
+      "Lettuce",
+    ]);
   });
 });
 
-xdescribe("Testing removeEvenNumbers()", () => {
+describe("Testing removeEvenNumbers()", () => {
   it("Should be defined", () => {
     expect(removeEvenNumbers(scores)).toBeDefined();
   });
@@ -207,7 +211,11 @@ xdescribe("Testing generateHighscores()", () => {
   beforeEach(() => {
     players = ["Andy", "Bex", "Calum"];
     playerScores = [60, 99, 71];
-    highscores = ["P:1 Andy scored 60", "P:2 Bex scored 99", "P:3 Calum scored 71"];
+    highscores = [
+      "P:1 Andy scored 60",
+      "P:2 Bex scored 99",
+      "P:3 Calum scored 71",
+    ];
   });
 
   it("Should be defined", () => {
@@ -215,7 +223,9 @@ xdescribe("Testing generateHighscores()", () => {
   });
 
   it("Should return an Array with correct params", () => {
-    expect(Array.isArray(generateHighscores(players, playerScores))).toBeTruthy();
+    expect(
+      Array.isArray(generateHighscores(players, playerScores))
+    ).toBeTruthy();
   });
 
   it("Should return String with incorrect params", () => {
@@ -232,7 +242,9 @@ xdescribe("Testing generateHighscores()", () => {
   });
 
   it("Should not lose any players", () => {
-    expect(generateHighscores(Array(10).fill("A"), Array(10).fill(1)).length).toBe(10);
+    expect(
+      generateHighscores(Array(10).fill("A"), Array(10).fill(1)).length
+    ).toBe(10);
   });
 
   it("Should catch invalid parameters.", () => {
@@ -269,8 +281,12 @@ xdescribe("Testing encryptString()", () => {
   });
 
   it("Should encrypt large words", () => {
-    expect(encryptString("antidisestablishmentarianism")).toBe("aistlhnrnmndeaimtiitisbseaas");
-    expect(encryptString("hippopotomonstrosesquippedaliophobia")).toBe("hpomsosielpbiototsqpdihipponreupaooa");
+    expect(encryptString("antidisestablishmentarianism")).toBe(
+      "aistlhnrnmndeaimtiitisbseaas"
+    );
+    expect(encryptString("hippopotomonstrosesquippedaliophobia")).toBe(
+      "hpomsosielpbiototsqpdihipponreupaooa"
+    );
   });
 
   it("Should keep spaces between words", () => {
