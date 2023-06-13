@@ -89,8 +89,8 @@ export const moveFirstAndLastItems = (itemsArr) => {
 
   const resultArr = [...itemsArr];
 
-  resultArr.pop();
-  resultArr.unshift(lastItem);
+  resultArr.pop(); // delete last item
+  resultArr.unshift(lastItem); // add item to index 0
   return resultArr;
 };
 
@@ -179,7 +179,20 @@ export const reverseOrder = (toReverseArr) => {
  */
 
 export const generateHighscores = (playersArr, scoresArr) => {
-  return;
+  let result = [];
+
+  if (playersArr.length == scoresArr.length && playersArr.length != 0) {
+    for (let i = 0; i < playersArr.length; i++) {
+      const player = playersArr[i];
+      const score = scoresArr[i];
+      let text = `P:${i + 1} ${player} scored ${score}`;
+      result.push(text);
+    }
+  } else {
+    result = "invalid inputs";
+  }
+
+  return result;
 };
 
 /**
@@ -204,10 +217,34 @@ export const generateHighscores = (playersArr, scoresArr) => {
  * @return {string} "ertnyecpd"
  */
 
-// export const encryptString = (toEncrypt) => {
-//   return;
-// };
-
 export const encryptString = (toEncrypt) => {
-  return;
+  if (toEncrypt) {
+    let arr1 = [];
+    let arr2 = [];
+    let arr3 = [];
+
+    for (let i = 0; i < toEncrypt.length; i++) {
+      arr1.push(toEncrypt[i]); // i= 0 3 6
+      i++;
+      arr2.push(toEncrypt[i]); // i= 1 4 7
+      i++;
+      arr3.push(toEncrypt[i]); // i= 2 5 8
+    }
+
+    return arr1.join("") + arr2.join("") + arr3.join("");
+  } else {
+    return toEncrypt;
+  }
 };
+
+// export const encryptString = (toEncrypt) => {
+//   let encString = "";
+
+//   for (let i = 0; i < 3; i++) {
+//     for (let j = 0; j < toEncrypt.length; j += 3) {
+//       encString += toEncrypt[j];
+//     }
+//   }
+
+//   return encString;
+// };
