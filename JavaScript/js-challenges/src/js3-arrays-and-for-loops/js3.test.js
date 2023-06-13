@@ -153,7 +153,7 @@ describe("Testing removeEvenNumbers()", () => {
   });
 });
 
-xdescribe("Testing generateAverage()", () => {
+describe("Testing generateAverage()", () => {
   it("Should be defined", () => {
     expect(generateAverage([10])).toBeDefined();
   });
