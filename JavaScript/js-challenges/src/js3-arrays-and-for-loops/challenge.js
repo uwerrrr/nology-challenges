@@ -134,7 +134,15 @@ export const removeEvenNumbers = (numberArr) => {
  */
 
 export const generateAverage = (numberArr) => {
-  return;
+  let sum = totalScores(numberArr);
+  let average = Math.round(sum / numberArr.length);
+  average = !isNaN(average) ? average : 0;
+  // for (let i = 0; i < numberArr.length; i++) {
+  //   const number = numberArr[i];
+  //   sum = (sum + number) / 2;
+  // }
+
+  return average;
 };
 
 /**
