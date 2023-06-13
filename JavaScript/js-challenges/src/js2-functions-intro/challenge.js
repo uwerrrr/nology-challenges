@@ -29,13 +29,14 @@ export const createFullName = (firstName, lastName) => {
  * @returns {number} 100
  */
 export const findSmallestNumber = (num1, num2) => {
-  let smallest = 0;
-  if (num1 < num2) {
-    smallest = num1;
-  } else {
-    smallest = num2;
-  }
-  return smallest;
+  // let smallest = 0;
+  // if (num1 < num2) {
+  //   smallest = num1;
+  // } else {
+  //   smallest = num2;
+  // }
+  // return smallest;
+  return num1 < num2 ? num1 : num2;
 };
 
 /**
@@ -46,10 +47,7 @@ export const findSmallestNumber = (num1, num2) => {
  * @param {number} number2 6
  * @returns {number} 18
  */
-export const multiplyNumbers = (num1, num2) => {
-  const product = num1 * num2;
-  return product;
-};
+export const multiplyNumbers = (num1, num2) => num1 * num2;
 
 /* Intermediate Challenges */
 

@@ -96,6 +96,7 @@ for (let i = 0; i < myName.length; i++) {
     // when index is even
     if (letter !== "z") {
       // convert letter to char code and +1 to the code value to increment the letter
+      // then convert the incremented char code back to string
       letter = String.fromCharCode(letter.charCodeAt(0) + 1);
     } else {
       // since using char code, +1 from "z" becomes "{"" -> manually change "a" to "z"
@@ -154,6 +155,17 @@ function deleteVowels(string) {
 result = deleteVowels("martyna");
 
 console.log("deleteVowels('martyna'): ", result);
+
+// second solution using Regex
+const nameWithVowels = "martyna";
+
+// set regex = /[aeiou]/ -> global = g -> case sensitive = i -> replace matched letters in word with ""
+const nameWithoutVowels = nameWithVowels.replace(/[aeiou]/gi, "");
+
+console.log(nameWithoutVowels);
+
+
+
 
 /* ## Loop through an array backwards
 
