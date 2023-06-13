@@ -137,10 +137,6 @@ export const generateAverage = (numberArr) => {
   let sum = totalScores(numberArr);
   let average = Math.round(sum / numberArr.length);
   average = !isNaN(average) ? average : 0;
-  // for (let i = 0; i < numberArr.length; i++) {
-  //   const number = numberArr[i];
-  //   sum = (sum + number) / 2;
-  // }
 
   return average;
 };
@@ -153,7 +149,15 @@ export const generateAverage = (numberArr) => {
  */
 
 export const reverseOrder = (toReverseArr) => {
-  return;
+  const reversedArr = [];
+
+  for (let i = toReverseArr.length - 1; i >= 0; i--) {
+    // array index = 0 -> array len - 1
+    const item = toReverseArr[i];
+    reversedArr.push(item);
+  }
+
+  return reversedArr;
 };
 
 /**
