@@ -256,7 +256,7 @@ describe("Testing filterBooksBySearch()", () => {
   });
 });
 
-xdescribe("Testing formatStringArray()", () => {
+describe("Testing formatStringArray()", () => {
   it("Should return a String", () => {
     expect(typeof formatStringArray(["  front"])).toBe("string");
   });
@@ -286,7 +286,7 @@ xdescribe("Testing formatStringArray()", () => {
   });
 });
 
-xdescribe("Testing formatString()", () => {
+describe("Testing formatString()", () => {
   it("Should NOT return undefined", () => {
     expect(formatString("  defined")).toBeDefined();
   });
@@ -341,7 +341,7 @@ xdescribe("Testing formatString()", () => {
   });
 });
 
-xdescribe("Testing fizzBuzz()", () => {
+describe("Testing fizzBuzz()", () => {
   const cleanArray = Array(50)
     .fill(0)
     .map((_, index) => index + 1);

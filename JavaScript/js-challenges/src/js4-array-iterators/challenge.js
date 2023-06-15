@@ -22,8 +22,8 @@
  */
 
 export const removeFalseValues = (booleanArr) => {
-  const boolean = booleanArr.filter((item) => item === true);
-  return boolean;
+  const trueVals = booleanArr.filter((item) => item === true);
+  return trueVals;
 };
 
 /**
@@ -144,11 +144,12 @@ export const filterBooksBySearch = (booksArr, searchTerm) => {
  */
 
 export const formatStringArray = (stringArr) => {
-  const cleanedArr = stringArr.forEach((string) => {
-    const cleanStr = string.trim().toLowerCase();
+  const cleanedArr = stringArr.map((string) => {
+    let cleanStr = string.trim().toLowerCase();
     return cleanStr;
   });
-
+  // console.log("string");
+  // console.log("cleanedArr ", cleanedArr);
   // console.log(???)
 
   const joinedString = cleanedArr.join("+");
@@ -170,8 +171,34 @@ export const formatStringArray = (stringArr) => {
  */
 
 export const formatString = (string) => {
-  return;
+  const stringArr = string.split("");
+  console.log("stringArr ", stringArr);
+  // const cleaned = formatStringArray(string);
+  
+  const regex = /[a-z]/gi;
+  const cleanedStrArr = stringArr.filter((char) => regex.test(char));
+  console.log("cleanedStrArr ", cleanedStrArr);
+
+  const formattedStrArr = cleanedStrArr.map((char, index) =>
+    index % 2 === 0 ? char.toUpperCase() : char.toLowerCase()
+  );
+  return formattedStrArr;
 };
+
+/* second solution */
+// export const formatString = (string) => {
+//   let cleanString = string.replace(/[^a-zA-Z]/gi, "").split("");
+//   // replace char that NOT a-zA-Z with ""
+//   return cleanString.reduce((result, letter, index) => {
+//     index % 2 === 0
+//       ? result.push(letter.toUpperCase())
+//       : result.push(letter.toLowerCase());
+//     return result;
+//   }, []);
+// };
+
+/* third solution */
+// can also use string.match() -> returns a string with matched chars only
 
 /**
  * Expert Challenge
@@ -196,6 +223,47 @@ export const formatString = (string) => {
  * @return {string[]} [ "Fizz", "Buzz", "FizzBuzz", "2" ]
  */
 
+/* first solution */
+// export const fizzBuzz = (mixedArray) => {
+//   let cleanArray = mixedArray.filter(
+//     (element) => element > 0 || Number(element) > 0
+//   );
+//   return cleanArray.reduce((result, number) => {
+//     if (Number(number) % 15 == 0) {
+//       result.push("FizzBuzz");
+//     } else if (Number(number) % 3 == 0) {
+//       result.push("Fizz");
+//     } else if (Number(number) % 5 == 0) {
+//       result.push("Buzz");
+//     } else {
+//       result.push(`${number}`);
+//     }
+//     return result;
+//   }, []);
+// };
+
+/* second solution */
 export const fizzBuzz = (mixedArray) => {
-  return;
+  const cleanArray = mixedArray.filter((item) => {
+    return (
+      !isNaN(item) && // Exclude non-numeric values
+      ((typeof item === "number" && item > 0) || // Filter positive numbers
+        (typeof item === "string" && Number(item) > 0))
+    );
+  });
+
+  const fizzBuzzedArray = cleanArray.map((item) => {
+    const number = Number(item); // Convert string numbers to actual numbers
+    if (number % 3 === 0 && number % 5 === 0) {
+      return "FizzBuzz";
+    } else if (number % 3 === 0) {
+      return "Fizz";
+    } else if (number % 5 === 0) {
+      return "Buzz";
+    } else {
+      return number.toString();
+    }
+  });
+
+  return fizzBuzzedArray;
 };
