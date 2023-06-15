@@ -37,9 +37,9 @@ export const totalScoresArr = (scoresArr) => {
 
 export const reverseString = (toReverse) => {
   const toReverseArr = toReverse.split("");
-  console.log(toReverseArr);
+  // console.log(toReverseArr);
   const reversedArr = toReverseArr.reduce((acc, curVal) => {
-    console.log(acc);
+    // console.log(acc);
     acc.unshift(curVal);
     return acc;
   }, []);
@@ -56,8 +56,11 @@ export const reverseString = (toReverse) => {
  * @return {string[]} ["b", "b", "b", "g", "l", "n", "x", "x"]
  */
 
-export const sortCharactersAlphabetically = (charcterArr) => {
-  return;
+export const sortCharactersAlphabetically = (characterArr) => {
+  const charArrLow = characterArr.map((char) => char.toLowerCase());
+  const sortedCharArrLow = [...charArrLow].sort();
+
+  return sortedCharArrLow;
 };
 
 /**
@@ -72,7 +75,8 @@ export const sortCharactersAlphabetically = (charcterArr) => {
  */
 
 export const sortNumbersHighToLow = (numberArr) => {
-  return;
+  const sortedNumArr = [...numberArr].sort((a, b) => b - a);
+  return sortedNumArr;
 };
 
 /**
@@ -103,7 +107,19 @@ export const checkItemInstock = (toCheck) => {
     "blueberry",
     "melon",
   ];
-  return;
+
+  const itemIndex = stockList.findIndex((stock) => stock === toCheck);
+  // returns founded index or -1 if not found
+
+  switch (itemIndex) {
+    case -1:
+      return `Sorry ${toCheck} is not instock.`;
+      break;
+
+    default:
+      const foundedItem = stockList[itemIndex];
+      return `${foundedItem} is instock, it is on aisle ${itemIndex}.`;
+  }
 };
 
 /**
@@ -117,7 +133,11 @@ export const checkItemInstock = (toCheck) => {
  */
 
 export const checkPrimaryColours = (coloursArr) => {
-  return;
+  const primaryColours = ["red", "blue", "yellow"];
+  const areAllrimaryColours = coloursArr.every((colour) =>
+    primaryColours.includes(colour)
+  );
+  return areAllrimaryColours;
 };
 
 /**
@@ -134,7 +154,10 @@ export const checkPrimaryColours = (coloursArr) => {
  */
 
 export const checkStringPalindrome = (stringOne) => {
-  return;
+  const reversedString = stringOne.split("").reverse().join("");
+  // split into array -> reverse the chars -> join to a reversed string
+
+  return stringOne === reversedString;
 };
 
 /**
@@ -147,8 +170,18 @@ export const checkStringPalindrome = (stringOne) => {
  * @return {number[]} [20, 7, 3]
  */
 
-export const totalNestedScoresArr = (scoresArr) => {
-  return;
+export const totalNestedScoresArr = (nestedScoresArr) => {
+  const totalScoresArr = nestedScoresArr.reduce((totalScores, scores) => {
+    // look into each scores array [7,7,6] of nested scores array [[7, 7, 6], [2, 3, 2]]
+    const totalScore = scores.reduce(
+      // look into each score 7 of scores array [7,7,6]
+      (totalScore, score) => (totalScore += score),
+      0
+    );
+    totalScores.push(totalScore);
+    return totalScores;
+  }, []);
+  return totalScoresArr;
 };
 
 /**
@@ -181,5 +214,20 @@ export const totalNestedScoresArr = (scoresArr) => {
  */
 
 export const encryptString = (toEncrypt) => {
-  return;
+  const encryptedMessage = toEncrypt
+    .split("")
+    .reduce((acc, char, index) => {
+      const groupIndex = index % 3; // group index = 0, 1 or 2
+      if (!acc[groupIndex]) {
+        // if group not exist yet <=> acc[2] = false -> set acc[2] = ""
+        acc[groupIndex] = "";
+      }
+      console.log(acc);
+      acc[groupIndex] += char;
+
+      return acc;
+    }, [])
+    .join("");
+
+  return encryptedMessage;
 };
