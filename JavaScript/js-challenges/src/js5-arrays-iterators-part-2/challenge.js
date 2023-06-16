@@ -108,18 +108,24 @@ export const checkItemInstock = (toCheck) => {
     "melon",
   ];
 
-  const itemIndex = stockList.findIndex((stock) => stock === toCheck);
-  // returns founded index or -1 if not found
+  /* first solution */
+  // const itemIndex = stockList.findIndex((stock) => stock === toCheck);
+  // // returns founded index or -1 if not found
 
-  switch (itemIndex) {
-    case -1:
-      return `Sorry ${toCheck} is not instock.`;
-      break;
+  // switch (itemIndex) {
+  //   case -1:
+  //     return `Sorry ${toCheck} is not instock.`;
+  //   // break;
 
-    default:
-      const foundedItem = stockList[itemIndex];
-      return `${foundedItem} is instock, it is on aisle ${itemIndex}.`;
-  }
+  //   default:
+  //     const foundedItem = stockList[itemIndex];
+  //     return `${foundedItem} is instock, it is on aisle ${itemIndex}.`;
+  // }
+
+  /* second solution */
+  return stockList.includes(toCheck)
+    ? `${toCheck} is instock, it is on aisle ${stockList.indexOf(toCheck)}.`
+    : `Sorry ${toCheck} is not instock.`;
 };
 
 /**
@@ -154,10 +160,30 @@ export const checkPrimaryColours = (coloursArr) => {
  */
 
 export const checkStringPalindrome = (stringOne) => {
-  const reversedString = stringOne.split("").reverse().join("");
-  // split into array -> reverse the chars -> join to a reversed string
+  /* first solution */
+  // const reversedString = stringOne.split("").reverse().join("");
+  // // split into array -> reverse the chars -> join to a reversed string
 
-  return stringOne === reversedString;
+  // return stringOne === reversedString;
+
+  /* second solution - more efficient solution */
+  let head = 0;
+  let tail = stringOne.length - 1;
+
+  let isPalindrome = true;
+
+  while (head < tail) {
+    // only need to check half of each word
+    if (stringOne.charAt(head) === stringOne.charAt(tail)) {
+      head++;
+      tail++;
+    } else {
+      isPalindrome = false;
+      break;
+    }
+  }
+
+  return isPalindrome;
 };
 
 /**
@@ -177,8 +203,8 @@ export const totalNestedScoresArr = (nestedScoresArr) => {
       // look into each score 7 of scores array [7,7,6]
       (totalScore, score) => (totalScore += score),
       0
-    );
-    totalScores.push(totalScore);
+    ); // totalScore = total1
+    totalScores.push(totalScore); // totalScores = [total1, total2, total3]
     return totalScores;
   }, []);
   return totalScoresArr;
@@ -214,20 +240,38 @@ export const totalNestedScoresArr = (nestedScoresArr) => {
  */
 
 export const encryptString = (toEncrypt) => {
-  const encryptedMessage = toEncrypt
-    .split("")
-    .reduce((acc, char, index) => {
-      const groupIndex = index % 3; // group index = 0, 1 or 2
-      if (!acc[groupIndex]) {
-        // if group not exist yet <=> acc[2] = false -> set acc[2] = ""
-        acc[groupIndex] = "";
-      }
-      console.log(acc);
-      acc[groupIndex] += char;
+  // const encryptedMessage = toEncrypt
+  //   .split("")
+  //   .reduce((acc, char, index) => {
+  //     const groupIndex = index % 3; // group index = 0, 1 or 2
+  //     if (!acc[groupIndex]) {
+  //       // if group not exist yet <=> acc[2] = false -> create acc[2] = ""
+  //       acc[groupIndex] = "";
+  //     }
+  //     console.log(acc);
 
-      return acc;
-    }, [])
+  //     acc[groupIndex] += char; // e.g. acc[2] = "c" + "p" = "cp"
+
+  //     return acc; // i.e. acc = ['ert', 'nye', 'cpd']
+  //   }, [])
+  //   .join(""); // <=> "ert"+"nye"+"cpd"
+
+  // return encryptedMessage;
+
+
+  /* second solution */
+  return toEncrypt
+    .split("")
+    .reduce(
+      (acc, curr, i) => {
+        const index = i % 3;
+        acc[index].push(curr);
+        return acc;
+      },
+      [[], [], []]
+    )
+    .flat() // transform 
     .join("");
 
-  return encryptedMessage;
+
 };
