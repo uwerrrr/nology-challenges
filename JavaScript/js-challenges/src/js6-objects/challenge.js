@@ -21,7 +21,8 @@
  * @return {number} The price of the piece of furniture
  */
 export const getFurniturePrice = (furniture) => {
-  /* Write code here */
+  const { price } = furniture;
+  return price;
 };
 
 /**
@@ -32,7 +33,15 @@ export const getFurniturePrice = (furniture) => {
  * @returns {{name: string, price: number, location: string}} furniture - A furniture object from the catalogue
  */
 export const setFurnitureStoreLocation = (furniture, location) => {
-  /* Write code here */
+  //// first solution
+  // const { name, price } = furniture;
+  // const updatedFurniture = { name, price, location };
+  // return updatedFurniture;
+
+  //// better solution
+  const updatedFurniture = { ...furniture }; // clone an Object
+  updatedFurniture.location = location; // add new property to the Object
+  return updatedFurniture;
 };
 
 /**
@@ -45,8 +54,13 @@ export const setFurnitureStoreLocation = (furniture, location) => {
  * @param {boolean} canTravelSolarSystems The ability for the space ship to travel to different solar systems
  * @returns {{name: string, noOfSeats: number, engineType: string, canTravelSolarSystems: boolean}} spaceship - The space ship object
  */
-export const makeSpaceship = (name, noOfSeats, engineType, canTravelSolarSystems) => {
-  /* Write code here */
+export const makeSpaceship = (
+  name,
+  noOfSeats,
+  engineType,
+  canTravelSolarSystems
+) => {
+  return { name, noOfSeats, engineType, canTravelSolarSystems };
 };
 
 /* Intermediate Challenges */
@@ -58,8 +72,24 @@ export const makeSpaceship = (name, noOfSeats, engineType, canTravelSolarSystems
  * @param {string} username - A username to attach
  * @returns {{name: string, username: string}} User - The user object with the same username or a new one
  */
-export const setUserName = (user, username) => {
-  /* Write code here */
+export const setUserName = (userObj, username) => {
+  //// First solution
+  // const userArr = Object.entries(userObj);
+  // console.log("userArr1: ", userArr); // userArr = [['name', 'value'], ['username', 'value']]
+  // if (!userArr[1]) {
+  //   userArr.push(["username", username]);
+  // }
+  // console.log("userArr2: ", userArr);
+  // return Object.fromEntries(userArr);
+
+  //// Better solution
+  if (userObj.username) {
+    return userObj;
+  } else {
+    const updatedUserObj = { ...userObj }; // clone object
+    updatedUserObj.username = username; // add username property
+    return updatedUserObj;
+  }
 };
 
 /**
@@ -70,7 +100,17 @@ export const setUserName = (user, username) => {
  * @returns {{fullName: string, firstName: string, lastName: string}} A customer object from the database with the name separated into first and last
  */
 export const splitFullNameToFirstAndLast = (customer) => {
-  /* Write code here */
+  const { fullName } = customer;
+  const firstAndLast = fullName.split(" "); // array of ['first', 'last']
+
+  // create new object, clone original Obj and add separated name properties
+  const updatedCustomer = {
+    ...customer,
+    firstName: firstAndLast[0],
+    lastName: firstAndLast[1],
+  };
+
+  return updatedCustomer;
 };
 
 /**
@@ -83,7 +123,7 @@ export const splitFullNameToFirstAndLast = (customer) => {
  * @returns {any} value - The value you have accessed on the object
  */
 export const accessGivenKey = (object, key) => {
-  /* Write code here */
+  return object[`${key}`];
 };
 
 /* Advanced Challenges */
