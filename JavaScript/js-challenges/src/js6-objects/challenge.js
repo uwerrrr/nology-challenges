@@ -100,19 +100,14 @@ export const setUserName = (userObj, username) => {
  * @returns {{fullName: string, firstName: string, lastName: string}} A customer object from the database with the name separated into first and last
  */
 export const splitFullNameToFirstAndLast = (customer) => {
-  const { fullName } = customer;
-  const firstAndLast = fullName.split(" "); // array of ['first', 'last']
+  const { fullName } = customer; // destructuring Obj
+  const separateNames = fullName.split(" "); // turns into array
 
-  // create new object, clone original Obj and add separated name properties
-  const updatedCustomer = {
-    ...customer,
-    firstName: firstAndLast[0],
-    lastName: firstAndLast[1],
-  };
+  const [firstName, lastName] = separateNames; // destructuring Arr
+  const updatedCustomer = { fullName, firstName, lastName };
 
   return updatedCustomer;
 };
-
 /**
  * A function which access a given key on an object
  *
@@ -136,7 +131,10 @@ export const accessGivenKey = (object, key) => {
  * @returns {string} An address string for a shipping label
  */
 export const getUserAddress = (user) => {
-  /* Write code here */
+  const { address } = user;
+  const addressValArr = Object.values(address);
+  const addressStr = addressValArr.join(" ");
+  return addressStr;
 };
 
 /**
@@ -148,7 +146,16 @@ export const getUserAddress = (user) => {
  * @return {{id: number, name: string, allergies: string[], safeAllergens: string[]}} customer
  */
 export const setSafeAllergens = (customer, allergenList) => {
-  /* Write code here */
+  const { allergies } = customer;
+
+  const safe = allergenList.filter((item) => {
+    return !allergies.includes(item);
+  }); //filters allergiesList array to keep only the ones that are not on allergies array
+  // console.log(safe);
+  customer.safeAllergens = safe;
+  // console.log(customer.safeAllergens);
+
+  return customer;
 };
 
 /* Expert Challenge */
@@ -163,4 +170,8 @@ export const setSafeAllergens = (customer, allergenList) => {
  */
 export const mergeFurniture = (furnitureLocationData, furnitureProductData) => {
   /* Write code here */
+
+  const { id, ...rest } = furnitureLocationData;
+
+  return { ...rest, ...furnitureProductData }; // ... -> spread out the values, without it, will be nested Obj
 };
