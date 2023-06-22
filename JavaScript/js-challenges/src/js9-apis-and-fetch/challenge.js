@@ -17,8 +17,10 @@
  * @param {string} url - The url of the API to fetch from
  * @returns {{id: string, name: string, age: number, height: number, interests: string[], isEmployed: boolean}[]} The data from the API
  */
- export const getData = (url) => {
-  // Your code here
+export const getData = async (url) => {
+  const response = await fetch(url);
+  const data = await response.json(); // data is array of Obj
+  return data;
 };
 
 /**
@@ -27,8 +29,14 @@
  * @param {string} url - The url of the API to fetch from
  * @returns {string[]} The list of names from the API
  */
-export const getNames = (url) => {
-  // Your code here
+export const getNames = async (url) => {
+  const data = await getData(url);
+
+  const namesArr = data.reduce((acc, curr) => {
+    acc.push(curr.name);
+    return acc;
+  }, []);
+  return namesArr;
 };
 
 /**
@@ -37,8 +45,10 @@ export const getNames = (url) => {
  * @param {string} url - The url of the API to fetch from
  * @return {{id: string, name: string, age: number, height: number, interests: string[], isEmployed: boolean}[]} The employed people from the API
  */
-export const getEmployedPeople = (url) => {
-  // Your code here
+export const getEmployedPeople = async (url) => {
+  const data = await getData(url);
+  const employedPpl = data.filter((person) => person.isEmployed);
+  return employedPpl;
 };
 
 /* Intermediate Challenges */
@@ -51,8 +61,18 @@ export const getEmployedPeople = (url) => {
  * @param {string} id - The ID of the person object to return
  * @returns {{id: string, name: string, age: number, height: number, interests: string[], isEmployed: boolean} | string} A person object OR A string saying "Person not found"
  */
-export const findPersonWithId = (url, id) => {
-  // Your code here
+export const findPersonWithId = async (url, id) => {
+  try {
+    const data = await getData(url);
+    const foundPersonArr = data.filter((person) => person.id === id); // empty array if not found
+
+    if (foundPersonArr.length == 0) {
+      throw new Error("Person not found");
+    }
+    return foundPersonArr[0]; // Arr has only 1 Obj in it -> get first Obj in Arr
+  } catch (e) {
+    return e.message;
+  }
 };
 
 /**
@@ -63,8 +83,24 @@ export const findPersonWithId = (url, id) => {
  * @param {string} interest - The interest to match
  * @returns {{id: string, name: string, age: number, height: number, interests: string[], isEmployed: boolean}[] | string} A group of person objects OR A string saying "No people with interest found"
  */
-export const getPeopleWithMatchingInterests = (url, interest) => {
-  // Your code here
+export const getPeopleWithMatchingInterests = async (url, interest) => {
+  try {
+    const data = await getData(url);
+    const matchingPplArr = data.reduce((acc, curr) => {
+      if (curr.interests.includes(interest)) {
+        acc.push(curr);
+      }
+      return acc;
+    }, []); // empty array if not found
+
+    if (matchingPplArr.length == 0) {
+      throw new Error("No people with interest found");
+    }
+
+    return matchingPplArr;
+  } catch (e) {
+    return e.message;
+  }
 };
 
 /* Advanced Challenges */
